@@ -1,0 +1,56 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.bfmtv.com/565-CMbO5c0zAEBo75UDs79-Pl0=/4x3:1252x705/1248x0/images/-179824.jpg)">
+  <div class="container">
+    <h1>Shopcollect le site des magasins près de chez vous !</h1><br>
+    <%= link_to "Commencer", "#", class: "btn-flat" %>
+  </div>
+</div>
+<h2 class="blue m-2">Nos Services </h2>
+<div class="row mt-2">
+  <div class="col-3">
+    <div class="card m-4 bg-light">
+      <img src=https://www.lecoindesentrepreneurs.fr/wp-content/uploads/2020/11/conseils-pour-developper-son-site-e-commerce.png" class="card-img-top" alt="...">
+      <card class="card-body">
+        <h3 class="blue card-text text-center">Engagement qualité </h3>
+      </card>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card m-4 bg-light">
+      <img src="https://www.lecoindesentrepreneurs.fr/wp-content/uploads/2020/11/conseils-pour-developper-son-site-e-commerce.png" class="card-img-top" alt="...">
+      <card class="card-body">
+        <h3 class="blue card-text text-center">SAV</h3>
+      </card>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card m-4 bg-light">
+      <img src="https://www.lecoindesentrepreneurs.fr/wp-content/uploads/2020/11/conseils-pour-developper-son-site-e-commerce.png" class="card-img-top" alt="...">
+      <card class="card-body">
+        <h3 class="blue card-text text-center">Commande en ligne</h3>
+      </card>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card m-4 bg-light">
+      <img src="https://www.lecoindesentrepreneurs.fr/wp-content/uploads/2020/11/conseils-pour-developper-son-site-e-commerce.png" class="card-img-top" alt="...">
+      <card class="card-body">
+        <h3 class="blue card-text text-center">Retrait en magasin</h3>
+      </card>
+    </div>
+  </div>
+</div>
+
+<h2 class="blue m-2">Nos Magasins </h2>
+<div class="row mt-2">
+  <% @shops.each do |shop| %>
+    <div class="col-4">
+      <div class="card m-4 bg-light">
+        <img src="https://s1.edi-static.fr/Img/DIAPORAMA/2021/1/356022/Les-idees-commerce-janv--2-F.jpg" class="card-img-top" alt="...">
+        <card class="card-body text-center">
+          <h3 class="blue card-text"><%= shop.name  %></h3><br>
+          <%= link_to "Voir les informations du magasin", shop_path(shop), class: "btn-flat" %>
+        </card>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,105 @@
+<div class="row m-5">
+    <div class="col-md-3 offset-1">
+      <%= link_to("Retour à l'accueil", root_path, class: "btn-flat btn-lg") %>
+    </div>
+    <div class="col-md-3 offset-md-5">
+        <% if I18n.locale == I18n.default_locale %>
+          <div id="eng">
+            <img src="https://duckduckgo.com/i/032f08bb.png" class="img-thumbnail img-eng"  alt="eng">
+            <%= link_to "English", { :locale=>'en' } %>
+          </div>
+        <% else %>
+          <div id="fra">
+            <img src="https://duckduckgo.com/i/41a66227.png" class="img-thumbnail img-fra"  alt="fr">
+            <%= link_to "Francais", { :locale=>'fr',class: "" } %>
+          </div>
+        <%end%>
+    </div>
+</div>
+
+<div class="container bg-light border rounded mb-3">
+  <h2 class="blue mt-2">Magasin de <%= @shop.name %></h2>
+</div>
+
+<div class="container bg-light border rounded mb-2">
+  <div class="row">
+    <div class="col-8">
+      <img src="https://blog.ippon.fr/content/images/2020/09/streets.png" alt="mapbox" class="img-thumbnail">
+    </div>
+    <div class="col-4 text-center p-2" data-controller="hourly">
+      <em>Adresse: <%= @shop.address %></em>
+      <ul class="list-group p-2" id="dayList">
+
+        <% @shop.hourlys.each do |hourly| %>
+
+          <li id="day1" class="list-group-item"><%= t(:Lundi) %> <%= hourly.monday %></li>
+          <li id="day2" class="list-group-item"><%= t(:Mardi) %> <%= hourly.tuesday %></li>
+          <li id="day3" class="list-group-item"><%= t(:Mercredi) %> <%= hourly.wednesday %></li>
+          <li id="day4" class="list-group-item"><%= t(:Jeudi) %> <%= hourly.thursday %></li>
+          <li id="day5" class="list-group-item"><%= t(:Vendredi) %> <%= hourly.friday %></li>
+          <li id="day6" class="list-group-item"><%= t(:Samedi) %> <%= hourly.saturday %></li>
+          <li id="day7" class="list-group-item"><%= t(:Dimanche) %> <%= hourly.sunday %></li>
+
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+    const JQ = $.noConflict();
+    JQ(document).ready(function() {
+        // on cherche la date du jour
+        const d = new Date();
+        let day = d.getDay();
+
+        let numberOfDay = 7;
+        let currDay = "#day" + day;
+        let tabDay = []
+
+        // on met la donnée du jour actuel en premier dans le tableau
+        tabDay.push(JQ(currDay).html());
+
+        // on cherche les jours suivant le jour actuel et on les stocks
+        let count = day + 1;
+        while(count <= numberOfDay){
+            let dayAfter = "#day" + count;
+            let dayAfterVal = JQ(dayAfter).html();
+            tabDay.push(dayAfterVal);
+            count++;
+        }
+
+        // si le jour est lundi il n'y as pas de jour avant donc on ne passe pas dans ce while
+        if( day != 1 ) {
+            // on cherche les jours avant le jour actuel
+            let countBefore = 1;
+            while (countBefore < day) {
+                let dayBefore = "#day" + countBefore;
+                let dayBeforeVal = JQ(dayBefore).html();
+                tabDay.push(dayBeforeVal);
+                countBefore++;
+            }
+        }
+
+        // on crée une fonction pour les autres jours qui ne sont pas à mettre en valeur
+        let tabIndex = 1;
+        let stringOtherDays = '';
+        const printDays = (tab) => {
+            while (tabIndex < tab.length)
+            {
+                stringOtherDays += `<li class="list-group-item">${tab[tabIndex]}</li>`;
+                tabIndex++;
+            }
+            return stringOtherDays;
+        }
+
+        // on affiche dans l'ul les données dans l'ordre voulu
+        JQ('#dayList').html(
+            `<li class="list-group-item text-danger fw-bold">${tabDay[0]}</li>
+             ${printDays(tabDay)}
+             `
+        );
+
+    });
+</script>
