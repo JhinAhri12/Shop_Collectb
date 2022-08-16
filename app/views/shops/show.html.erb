@@ -1,4 +1,4 @@
-<div class="row m-5">
+<div class="row m-5" data-controller="shop">
     <div class="col-md-3 offset-1">
       <%= link_to("Retour à l'accueil", root_path, class: "btn-flat btn-lg") %>
     </div>
@@ -26,7 +26,7 @@
     <div class="col-8">
       <img src="https://blog.ippon.fr/content/images/2020/09/streets.png" alt="mapbox" class="img-thumbnail">
     </div>
-    <div class="col-4 text-center p-2" data-controller="hourly">
+    <div class="col-4 text-center p-2" >
       <em>Adresse: <%= @shop.address %></em>
       <ul class="list-group p-2" id="dayList">
 
